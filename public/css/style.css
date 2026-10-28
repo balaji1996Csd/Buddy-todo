@@ -1,0 +1,95 @@
+:root { --ink:#1d2b3a; --accent:#4f8cff; --ok:#2fb36d; --warn:#f5a524; --bad:#e5484d; }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; color:var(--ink);
+  font:15px/1.45 system-ui,"Segoe UI",Roboto,sans-serif;
+  background:linear-gradient(#9fd3ff,#e8f6ff 60%,#fdfbf2); }
+.hidden { display:none !important; }
+
+/* sky + birds */
+#sky::before,#sky::after { content:''; position:fixed; left:-320px; height:60px; width:220px; background:#fff;
+  border-radius:60px; opacity:.7; filter:blur(2px); animation:cloud 70s linear infinite; z-index:0; }
+#sky::before { top:12vh; } #sky::after { top:34vh; width:300px; animation-duration:100s; animation-delay:-40s; }
+@keyframes cloud { to { transform:translateX(calc(100vw + 700px)); } }
+
+#birds { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:100; }
+.bird { position:absolute; left:-90px; top:var(--y); scale:var(--s);
+  animation:fly var(--dur) linear var(--delay) forwards; }
+.bird svg { fill:var(--bc); overflow:visible; animation:bob 1s ease-in-out infinite; }
+.bird .wing { transform-origin:30px 22px; animation:flap .32s ease-in-out infinite; }
+.bird .wing.back { animation-delay:-.12s; opacity:.7; }
+@keyframes fly { to { transform:translateX(calc(100vw + 200px)); } }
+@keyframes flap { 0%,100% { transform:scaleY(1); } 50% { transform:scaleY(-.7); } }
+@keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+
+/* layout */
+header { position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center;
+  gap:12px; flex-wrap:wrap; padding:16px 24px; }
+h1 { margin:0; font-size:26px; }
+main { position:relative; z-index:2; display:grid; grid-template-columns:minmax(300px,380px) 1fr;
+  gap:20px; padding:0 24px 40px; align-items:start; max-width:1100px; margin:0 auto; }
+@media (max-width:800px) { main { grid-template-columns:1fr; } }
+.card,.task { background:#ffffffee; border-radius:16px; padding:16px; box-shadow:0 6px 20px #1d2b3a1a; }
+.card h2 { margin:0 0 10px; font-size:18px; }
+form label { display:block; font-size:13px; font-weight:600; margin-bottom:10px; }
+input,select { width:100%; margin-top:4px; padding:8px 10px; border:1px solid #c9d6e5; border-radius:10px; font:inherit; background:#fff; }
+.row { display:flex; gap:10px; } .row > * { flex:1; }
+.row.three label { font-size:12px; }
+.days { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.days label,.check { display:flex !important; align-items:center; gap:4px; font-weight:500; margin:0; }
+.days input,.check input { width:auto; margin:0; }
+
+.btn { border:0; border-radius:10px; padding:9px 14px; font:inherit; font-weight:600; cursor:pointer;
+  background:#e6edf7; color:var(--ink); transition:transform .1s; }
+.btn:hover { transform:translateY(-1px); }
+.btn.primary { background:var(--accent); color:#fff; } .btn.ok { background:var(--ok); color:#fff; }
+.btn.warn { background:var(--warn); color:#fff; } .btn.bad { background:var(--bad); color:#fff; }
+.btn.small { padding:5px 9px; font-size:13px; }
+
+/* task list */
+#list { display:grid; gap:12px; }
+.task { display:grid; grid-template-columns:48px 1fr; gap:12px; }
+.task.off { opacity:.55; }
+.task .face { font-size:36px; line-height:1; }
+.task h3 { margin:0; font-size:16px; } .task .meta { font-size:13px; opacity:.75; }
+.task .status { margin:6px 0; }
+.task .btns { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.task details { margin-top:6px; font-size:13px; } .task summary { cursor:pointer; opacity:.8; }
+.task ul { margin:6px 0 0; padding-left:18px; }
+.empty { text-align:center; opacity:.7; padding:30px; }
+
+/* reminder popup */
+#modal { position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center;
+  background:#10203a99; backdrop-filter:blur(3px); }
+.sheet { background:#fff; border-radius:22px; padding:24px; width:min(440px,92vw); text-align:center;
+  animation:pop .35s cubic-bezier(.2,1.6,.4,1); }
+.sheet h2 { margin:8px 0 2px; } .sheet p { margin:0 0 14px; opacity:.8; }
+.bubble { background:#f1f6ff; border-radius:14px; padding:10px 14px; margin-top:6px; font-weight:600; position:relative; }
+.bubble::before { content:''; position:absolute; top:-8px; left:50%; margin-left:-8px; border:8px solid transparent;
+  border-top:0; border-bottom-color:#f1f6ff; }
+.mbtns { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; }
+.mins { display:flex; gap:12px; justify-content:center; margin-top:12px; font-size:12px; }
+.mins input { width:64px; display:inline-block; margin:0 4px; }
+@keyframes pop { from { transform:scale(.6); opacity:0; } }
+
+/* characters */
+.char { font-size:84px; line-height:1; display:inline-block; transform-origin:50% 90%; }
+.bounce  { animation:bounce .7s ease-in-out infinite; }
+.jump    { animation:jump .5s ease-in-out infinite; }
+.flutter { animation:flutter .35s ease-in-out infinite; }
+.glitch  { animation:glitch 1s steps(2) infinite; filter:drop-shadow(0 0 8px #3df); }
+.sway    { animation:sway 2s ease-in-out infinite; }
+.h-cheerful { animation:wave .6s ease-in-out infinite; }
+.h-strict   { animation:shake .25s linear infinite; }
+.h-sassy    { animation:tilt 1.6s ease-in-out infinite; }
+.h-chill    { animation:sway 3s ease-in-out infinite; }
+@keyframes bounce  { 0%,100% { transform:translateY(0) scale(1,1); } 50% { transform:translateY(-18px) scale(.95,1.08); } }
+@keyframes jump    { 0%,100% { transform:translateY(0) rotate(-6deg); } 50% { transform:translateY(-26px) rotate(6deg); } }
+@keyframes flutter { 0%,100% { transform:translate(0,0) rotate(-8deg); } 50% { transform:translate(4px,-8px) rotate(8deg); } }
+@keyframes glitch  { 0% { transform:translate(0); } 25% { transform:translate(-4px,2px) skewX(6deg); } 50% { transform:translate(4px,-2px); } 75% { transform:translate(-2px,0) skewX(-6deg); } }
+@keyframes sway    { 0%,100% { transform:rotate(-7deg); } 50% { transform:rotate(7deg); } }
+@keyframes wave    { 0%,100% { transform:translateY(0) rotate(-10deg); } 50% { transform:translateY(-14px) rotate(10deg); } }
+@keyframes shake   { 0%,100% { transform:translateX(-4px); } 50% { transform:translateX(4px); } }
+@keyframes tilt    { 0%,100% { transform:rotate(-12deg); } 50% { transform:rotate(12deg) translateY(-4px); } }
+
+#toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#1d2b3a; color:#fff;
+  padding:10px 16px; border-radius:12px; z-index:200; max-width:90vw; }

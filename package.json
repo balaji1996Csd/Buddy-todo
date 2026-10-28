@@ -1,0 +1,21 @@
+{
+  "name": "buddy-todo",
+  "productName": "Buddy Todo",
+  "version": "2.0.0",
+  "description": "Todo + reminder desktop app (Linux) with always-on-top animated popups, sounds and birds",
+  "main": "electron/main.js",
+  "author": "you",
+  "scripts": {
+    "app": "electron . --no-sandbox",
+    "web": "node server.js",
+    "dist": "electron-builder --linux AppImage deb"
+  },
+  "dependencies": { "express": "^4.19.2", "web-push": "^3.6.7" },
+  "devDependencies": { "electron": "^33.2.0", "electron-builder": "^25.1.8" },
+  "build": {
+    "appId": "com.buddy.todo",
+    "productName": "Buddy Todo",
+    "files": ["electron/**", "server.js", "src/**", "public/**", "package.json"],
+    "linux": { "target": ["AppImage", "deb"], "category": "Utility", "icon": "electron/icon.png" }
+  }
+}

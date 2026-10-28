@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reminder</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="sky"></div>
+  <div id="birds"></div>
+  <div id="modal">
+    <div class="sheet">
+      <div id="mChar" class="char"></div>
+      <div id="mSay" class="bubble"></div>
+      <h2 id="mTitle"></h2>
+      <p id="mNote"></p>
+      <div class="mbtns">
+        <button id="mDone" class="btn ok">✅ Completed</button>
+        <button id="mProg" class="btn warn">🚧 Start progress</button>
+        <button id="mLater" class="btn">⏰ Later</button>
+      </div>
+      <div class="mins">
+        <label>Work for <input id="mWorkMin" type="number" min="1" value="25"> min</label>
+        <label>Remind again in <input id="mLaterMin" type="number" min="1" value="10"> min</label>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/js/popup.js"></script>
+</body>
+</html>
